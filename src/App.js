@@ -1,39 +1,58 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import List from './components/List';
-import withListLoading from './components/LoadingList';
-import Navbar from './components/Navigation'
-function App() {
-  const ListLoading = withListLoading(List);
-  const [appState, setAppState] = useState({
-    loading: false,
-    repos: null,
-  });
+import React from 'react';
+import Navbar from './components/Navigation';
+import Users from './components/Users';
+import Search from './components/Search';
+import Alert from './components/Alert'
+import axios from 'axios';
 
-  useEffect(() => {
-    setAppState({ loading: true });
-    const apiUrl = `https://api.github.com/users/mihaicozmuta/repos`;
-    fetch(apiUrl)
-      .then((res) => res.json())
-      .then((repos) => {
-        setAppState({ loading: false, repos: repos });
-      });
-  }, [setAppState]);
+import './App.css';
+
+class App extends React.Component{
+  state = {
+    users: [],
+    loading: false,
+    alert: null
+  }
+
+  searchUsers = async (text) => {
+    this.setState({loading:true})
+    const res = await axios.get(`https://api.github.com/search/users?q=${text}&
+                                client_id= ${process.env.REACT_APP_GITHUB_CLIENT_ID}
+                                &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+    this.setState({users:res.data.items, loading:false});
+  }
+x
+  clearUsers = () => {
+    this.setState({users:[], loading:false});
+  }
+
+  //Set alert for empty field
+  setAlert = (msg, type) => {
+    this.setState({alert: {msg, type}});
+
+    setTimeout(() => this.setState({alert: null}), 3000);
+  };
+
+  render(){
+    const {users, loading} = this.state;
+    return (
+      //jsx
+      <div className="App">
+        <Navbar />
+        <div className="container">
+          <Alert alert={this.state.alert} />
+          <Search searchUsers={this.searchUsers} 
+                  clearUsers={this.clearUsers}
+                  showClear={users.length > 0 ? true : false }
+                  setAlert={this.setAlert}/>
+                  
+          <Users loading={loading} users={users}/>
+        </div>    
+      </div>
+    );
+  }
+
   
-  return (
-    <div className='App'>
-      <Navbar/>
-      <div className='container'>
-        <h1>Repositories</h1>
-      </div>
-      <div>
-        <input type="text" placeholder="username" />
-        <button>Search</button>
-      </div>
-      <div className='repo-container'>
-        <ListLoading isLoading={appState.loading} repos={appState.repos} />
-      </div>
-    </div>
-  );
 }
+
 export default App;
