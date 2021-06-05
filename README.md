@@ -10,7 +10,7 @@ I decied to elevate the homework and go a step further.
 
 ## A Little GitHub profile view
 
-Instead of just rendering some boring repository names, I decided to output a full profile of the username that is desired (photo, name etc.)
+Instead of just rendering some boring repository names (or gists), I decided to output a full profile of the username that is desired (photo, name etc.)
 
 I used stuff learned from previous tutorials to be able to put this together. 
 
