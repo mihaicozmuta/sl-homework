@@ -24,6 +24,10 @@ function App() {
       <div className='container'>
         <h1>Repositories</h1>
       </div>
+      <div>
+        <input type="text" placeholder="username" />
+        <button>Search</button>
+      </div>
       <div className='repo-container'>
         <ListLoading isLoading={appState.loading} repos={appState.repos} />
       </div>
