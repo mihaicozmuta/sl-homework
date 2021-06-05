@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import UserCard from './UserCard';
-import Spinner from './Spinner';
+import UserCard from 'components/users/UserItem';
+import Spinner from 'components/layout/Spinner';
 import PropTypes from 'prop-types';
 
 const Users = ({users, loading}) => {
