@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useContext } from 'react';
 import Spinner from '../layout/Spinner';
-import Repos from 'componets/repos/Repos';
+import Repos from '../repos/Repos';
 import { Link } from 'react-router-dom';
 import GithubContext from '../../context/github/githubContext';
 
@@ -19,7 +19,6 @@ const User = ({ match }) => {
     name,
     company,
     avatar_url,
-    location,
     bio,
     blog,
     login,
@@ -46,7 +45,6 @@ const User = ({ match }) => {
             style={{ width: '150px' }}
           />
           <h1>{name}</h1>
-          <p>Location: {location}</p>
         </div>
         <div>
           {bio && (
