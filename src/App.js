@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import List from './components/List';
 import withListLoading from './components/LoadingList';
+import Navbar from './components/Navigation'
 function App() {
   const ListLoading = withListLoading(List);
   const [appState, setAppState] = useState({
@@ -21,6 +22,7 @@ function App() {
   
   return (
     <div className='App'>
+      <Navbar/>
       <div className='container'>
         <h1>Repositories</h1>
       </div>
